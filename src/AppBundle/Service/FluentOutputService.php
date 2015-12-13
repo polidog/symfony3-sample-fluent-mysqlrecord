@@ -53,10 +53,7 @@ class FluentOutputService
         $metadata = $this->entityManager->getClassMetadata(get_class($article));
         $type = "app.".$metadata->getTableName();
         $this->fluentLogger->post($type, array_filter($this->serializer->normalize($article),function($idx){
-            if ($idx == 'id') {
-                return false;
-            }
-            return true;
+            return $idx != 'id';
         },ARRAY_FILTER_USE_KEY));
     }
 
